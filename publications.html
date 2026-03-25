@@ -16,7 +16,15 @@
       <a href="index.html" class="nav-brand">K<span>.</span> Velasco</a>
       <ul class="nav-links" id="navLinks">
         <li><a href="index.html">About</a></li>
-        <li><a href="publications.html" class="active">Publications</a></li>
+        <li class="nav-dropdown">
+          <a href="publications.html" class="active">Research &#9662;</a>
+          <ul class="dropdown-menu">
+            <li><a href="publications.html">All Publications</a></li>
+            <li><a href="publications.html#world-culture">World Culture &amp; Transnational Networks</a></li>
+            <li><a href="publications.html#nonprofits">Nonprofits &amp; Civil Society</a></li>
+            <li><a href="publications.html#queer-demography">Queer Demography &amp; Migration</a></li>
+          </ul>
+        </li>
         <li><a href="datasets.html">Datasets</a></li>
         <li><a href="files/Velasco_CV.pdf" target="_blank">CV &darr;</a></li>
       </ul>
@@ -35,8 +43,8 @@
         <p>Journal articles, book chapters, and works in progress. <span class="count">* = (under)graduate student co-author</span></p>
       </div>
 
-      <!-- Filter Buttons -->
-      <div class="filters">
+      <!-- Type Filter Buttons -->
+      <div class="filters" id="typeFilters">
         <button class="filter-btn active" data-filter="all">All</button>
         <button class="filter-btn" data-filter="article">Journal Articles</button>
         <button class="filter-btn" data-filter="book">Book</button>
@@ -44,14 +52,28 @@
         <button class="filter-btn" data-filter="manuscript">In Progress</button>
       </div>
 
+      <!-- Theme Filter Buttons -->
+      <div class="filters" id="themeFilters">
+        <button class="filter-btn active" data-theme-filter="all">All Themes</button>
+        <button class="filter-btn" data-theme-filter="world-culture">World Culture &amp; Transnational Networks</button>
+        <button class="filter-btn" data-theme-filter="nonprofits">Nonprofits &amp; Civil Society</button>
+        <button class="filter-btn" data-theme-filter="queer-demography">Queer Demography &amp; Migration</button>
+      </div>
+
       <!-- ===== BOOK ===== -->
       <div class="pub-section-title" data-section="book"><span class="icon">&#9670;</span> Book</div>
       <div class="pub-list">
-        <div class="pub-entry animate-in" data-type="book">
+        <div class="pub-entry animate-in" data-type="book" data-theme="world-culture">
           <div class="pub-year"><span class="status-tag status-ur">Under Review</span></div>
           <div class="pub-content">
             <h3>Architectures of Hate: U.S. Civil Society and the Undoing of Global LGBTQ+ Rights&mdash;And Democracy with It</h3>
             <p class="pub-authors"><strong>Velasco, Kristopher</strong></p>
+            <div class="pub-abstract">
+              <button class="abstract-toggle">Abstract &#9662;</button>
+              <div class="abstract-content">
+                <p>This book examines how U.S.-based civil society organizations have mobilized to undermine LGBTQ+ rights globally, revealing the interconnections between anti-queer advocacy and democratic erosion worldwide.</p>
+              </div>
+            </div>
             <div class="pub-links">
               <a href="files/Velasco_Book_Proposal.pdf" class="pub-link" target="_blank">Book Proposal</a>
             </div>
@@ -64,12 +86,18 @@
       <div class="pub-list">
 
         <!-- Forthcoming: Hoffmann & Velasco - POQ -->
-        <div class="pub-entry animate-in" data-type="article">
+        <div class="pub-entry animate-in" data-type="article" data-theme="queer-demography">
           <div class="pub-year">Forthcoming</div>
           <div class="pub-content">
             <h3>Sexuality, Cultural Similarity, and Immigrant Deservingness: Evidence from a Conjoint Survey Experiment</h3>
             <p class="pub-authors">Hoffmann, Nathan I.* and <strong>Kristopher Velasco</strong></p>
             <p class="pub-venue">Public Opinion Quarterly</p>
+            <div class="pub-abstract">
+              <button class="abstract-toggle">Abstract &#9662;</button>
+              <div class="abstract-content">
+                <p>Using a conjoint survey experiment, this study investigates how sexuality and perceived cultural similarity shape public attitudes toward immigrant deservingness in the United States.</p>
+              </div>
+            </div>
             <div class="pub-links">
               <a href="https://doi.org/10.1093/poq/nfaf054" class="pub-link" target="_blank">Paper</a>
               <a href="https://doi.org/10.7910/DVN/3FONBK" class="pub-link data-link" target="_blank">Replication Package</a>
@@ -78,32 +106,50 @@
         </div>
 
         <!-- Forthcoming: Messamore, Paxton & Velasco - NVSQ -->
-        <div class="pub-entry animate-in" data-type="article">
+        <div class="pub-entry animate-in" data-type="article" data-theme="nonprofits">
           <div class="pub-year">Forthcoming</div>
           <div class="pub-content">
             <h3>The Heart vs. the Head: How Nonprofit Use of Emotion and Cognition Attracts Donors and Volunteers</h3>
             <p class="pub-authors">Messamore, Andrew*, Pamela Paxton, and <strong>Kristopher Velasco</strong></p>
             <p class="pub-venue">Nonprofit and Voluntary Sector Quarterly</p>
+            <div class="pub-abstract">
+              <button class="abstract-toggle">Abstract &#9662;</button>
+              <div class="abstract-content">
+                <p>This study explores how nonprofits strategically deploy emotional versus cognitive appeals in communications, and how these different approaches influence donor giving and volunteer recruitment.</p>
+              </div>
+            </div>
           </div>
         </div>
 
         <!-- 2025: Seigler, Velasco & Paxton - ASR -->
-        <div class="pub-entry animate-in" data-type="article">
+        <div class="pub-entry animate-in" data-type="article" data-theme="nonprofits">
           <div class="pub-year">2025</div>
           <div class="pub-content">
             <h3>&lsquo;Choppy Waters&rsquo;: Navigating Political Generational Conflict in Social Movement Organizations</h3>
             <p class="pub-authors">Seigler, Carolina P.*, <strong>Kristopher Velasco</strong>, and Pamela Paxton</p>
             <p class="pub-venue">American Sociological Review 90(6): 1092&ndash;1122</p>
+            <div class="pub-abstract">
+              <button class="abstract-toggle">Abstract &#9662;</button>
+              <div class="abstract-content">
+                <p>This article examines how political generational conflicts within social movement organizations create internal tensions and shape organizational strategies for navigating disagreements between older and younger cohorts.</p>
+              </div>
+            </div>
           </div>
         </div>
 
         <!-- 2025: Hoffmann & Velasco - IMR -->
-        <div class="pub-entry animate-in" data-type="article">
+        <div class="pub-entry animate-in" data-type="article" data-theme="queer-demography">
           <div class="pub-year">2025</div>
           <div class="pub-content">
             <h3>Sexuality, Migration, and LGB Policy: A Portrait of Immigrants in Same-Sex Couples in the United States</h3>
             <p class="pub-authors">Hoffmann, Nathan I.* and <strong>Kristopher Velasco</strong></p>
             <p class="pub-venue">International Migration Review 59(3): 1500&ndash;1529</p>
+            <div class="pub-abstract">
+              <button class="abstract-toggle">Abstract &#9662;</button>
+              <div class="abstract-content">
+                <p>This study provides a demographic portrait of immigrants in same-sex couples in the United States, examining how LGB-related policies in origin and destination countries shape migration patterns.</p>
+              </div>
+            </div>
             <div class="pub-links">
               <a href="https://doi.org/10.1177/01979183231187623" class="pub-link" target="_blank">Paper</a>
               <a href="https://osf.io/preprints/socarxiv/v4swp/" class="pub-link" target="_blank">Preprint</a>
@@ -113,22 +159,34 @@
         </div>
 
         <!-- 2025: Budnick, Pao & Velasco - Sex and Sexualities -->
-        <div class="pub-entry animate-in" data-type="article">
+        <div class="pub-entry animate-in" data-type="article" data-theme="queer-demography">
           <div class="pub-year">2025</div>
           <div class="pub-content">
             <h3>Queer Data for Sociologists of Sexualities: Introducing SOGIESC Measurement &amp; Methods During Political Suppression</h3>
             <p class="pub-authors">Budnick, Jamie, Christina Pao*, and <strong>Kristopher Velasco</strong></p>
             <p class="pub-venue">Sex and Sexualities 1(1)</p>
+            <div class="pub-abstract">
+              <button class="abstract-toggle">Abstract &#9662;</button>
+              <div class="abstract-content">
+                <p>This article introduces measurement approaches for sexual orientation, gender identity, and sex characteristics (SOGIESC) data, addressing methodological challenges during a period of political suppression of queer data collection.</p>
+              </div>
+            </div>
           </div>
         </div>
 
         <!-- 2024: Velasco & Swindle - Mobilization -->
-        <div class="pub-entry animate-in" data-type="article">
+        <div class="pub-entry animate-in" data-type="article" data-theme="world-culture">
           <div class="pub-year">2024</div>
           <div class="pub-content">
             <h3>Assembling God&rsquo;s &lsquo;Last Best Hope&rsquo;: The Expanding Reach of the World Congress of Families</h3>
             <p class="pub-authors"><strong>Velasco, Kristopher</strong> and Jeffrey Swindle</p>
             <p class="pub-venue">Mobilization: An International Quarterly 29(4): 441&ndash;468</p>
+            <div class="pub-abstract">
+              <button class="abstract-toggle">Abstract &#9662;</button>
+              <div class="abstract-content">
+                <p>This study traces the expanding global reach of the World Congress of Families, analyzing how this conservative transnational network has grown its influence across countries and regions over time.</p>
+              </div>
+            </div>
             <div class="pub-links">
               <a href="https://doi.org/10.17813/1086-671X-29-4-441" class="pub-link" target="_blank">Paper</a>
             </div>
@@ -136,22 +194,34 @@
         </div>
 
         <!-- 2024: Velasco, Baral & Tang - Journal of Democracy -->
-        <div class="pub-entry animate-in" data-type="article">
+        <div class="pub-entry animate-in" data-type="article" data-theme="world-culture">
           <div class="pub-year">2024</div>
           <div class="pub-content">
             <h3>Is Democracy Bad for LGBT+ Rights?</h3>
             <p class="pub-authors"><strong>Velasco, Kristopher</strong>, Siddhartha Baral*, and Yun (Nancy) Tang*</p>
             <p class="pub-venue">Journal of Democracy 35(3): 131&ndash;148</p>
+            <div class="pub-abstract">
+              <button class="abstract-toggle">Abstract &#9662;</button>
+              <div class="abstract-content">
+                <p>This article interrogates the assumed positive relationship between democracy and LGBT+ rights, examining conditions under which democratic processes may actually hinder progress on sexual and gender minority protections.</p>
+              </div>
+            </div>
           </div>
         </div>
 
         <!-- 2024: Hoffmann & Velasco - Social Forces -->
-        <div class="pub-entry animate-in" data-type="article">
+        <div class="pub-entry animate-in" data-type="article" data-theme="queer-demography">
           <div class="pub-year">2024</div>
           <div class="pub-content">
             <h3>Political Dimensions of Rising Mixed-Citizenship, Same-Sex Couples: A Difference-in-Differences-in-Differences Analysis</h3>
             <p class="pub-authors">Hoffmann, Nathan I.* and <strong>Kristopher Velasco</strong></p>
             <p class="pub-venue">Social Forces 102(3): 1134&ndash;1156</p>
+            <div class="pub-abstract">
+              <button class="abstract-toggle">Abstract &#9662;</button>
+              <div class="abstract-content">
+                <p>Using a difference-in-differences-in-differences design, this article examines how political and legal changes around same-sex marriage have influenced the rise of mixed-citizenship same-sex couples in the United States.</p>
+              </div>
+            </div>
             <div class="pub-links">
               <a href="https://doi.org/10.1093/sf/soad108" class="pub-link" target="_blank">Paper</a>
               <a href="https://osf.io/preprints/socarxiv/hx38t/" class="pub-link" target="_blank">Preprint</a>
@@ -161,12 +231,18 @@
         </div>
 
         <!-- 2023: Velasco - AJS (Award-winning) -->
-        <div class="pub-entry animate-in" data-type="article">
+        <div class="pub-entry animate-in" data-type="article" data-theme="world-culture">
           <div class="pub-year">2023</div>
           <div class="pub-content">
             <h3>Transnational Backlash and the Deinstitutionalization of Liberal Norms: LGBT+ Rights in a Contested World</h3>
             <p class="pub-authors"><strong>Velasco, Kristopher</strong></p>
             <p class="pub-venue">American Journal of Sociology 128(5): 1381&ndash;1429</p>
+            <div class="pub-abstract">
+              <button class="abstract-toggle">Abstract &#9662;</button>
+              <div class="abstract-content">
+                <p>This article theorizes and empirically demonstrates how transnational backlash networks have contributed to the deinstitutionalization of liberal norms around LGBT+ rights, reshaping the global normative landscape.</p>
+              </div>
+            </div>
             <div class="pub-links">
               <a href="https://doi.org/10.1086/724724" class="pub-link" target="_blank">Paper</a>
               <a href="https://osf.io/preprints/socarxiv/3rtje/" class="pub-link" target="_blank">Preprint</a>
@@ -177,22 +253,34 @@
         </div>
 
         <!-- 2023: Cole, Schofer & Velasco - ASR -->
-        <div class="pub-entry animate-in" data-type="article">
+        <div class="pub-entry animate-in" data-type="article" data-theme="world-culture">
           <div class="pub-year">2023</div>
           <div class="pub-content">
             <h3>Individual Empowerment, Institutional Confidence, and Vaccination Rates in Cross-National Perspective, 1995 to 2018</h3>
             <p class="pub-authors">Cole, Wade, Evan Schofer, and <strong>Kristopher Velasco</strong></p>
             <p class="pub-venue">American Sociological Review 88(3): 379&ndash;417</p>
+            <div class="pub-abstract">
+              <button class="abstract-toggle">Abstract &#9662;</button>
+              <div class="abstract-content">
+                <p>This study examines how individual empowerment and institutional confidence jointly shape vaccination rates across countries, revealing tensions between personal autonomy and public health compliance from 1995 to 2018.</p>
+              </div>
+            </div>
           </div>
         </div>
 
         <!-- 2023: Velasco - Social Forces -->
-        <div class="pub-entry animate-in" data-type="article">
+        <div class="pub-entry animate-in" data-type="article" data-theme="world-culture">
           <div class="pub-year">2023</div>
           <div class="pub-content">
             <h3>Opposition Avoidance or Mutual Engagement? The Interdependent Relationship in Where Opposing Transnational LGBT+ Networks Locate</h3>
             <p class="pub-authors"><strong>Velasco, Kristopher</strong></p>
             <p class="pub-venue">Social Forces 101(4): 2087&ndash;2116</p>
+            <div class="pub-abstract">
+              <button class="abstract-toggle">Abstract &#9662;</button>
+              <div class="abstract-content">
+                <p>This article investigates whether opposing transnational advocacy networks in the LGBT+ space avoid each other or strategically co-locate, analyzing the spatial interdependence of pro- and anti-LGBT+ organizations.</p>
+              </div>
+            </div>
             <div class="pub-links">
               <a href="https://doi.org/10.1093/sf/soac068" class="pub-link" target="_blank">Paper</a>
               <a href="https://osf.io/preprints/socarxiv/dgvem/" class="pub-link" target="_blank">Preprint</a>
@@ -201,53 +289,83 @@
         </div>
 
         <!-- 2022: Lerch et al. - International Sociology -->
-        <div class="pub-entry animate-in" data-type="article">
+        <div class="pub-entry animate-in" data-type="article" data-theme="world-culture">
           <div class="pub-year">2022</div>
           <div class="pub-content">
             <h3>Women&rsquo;s Participation in the Post-Liberal Era: A Global Perspective</h3>
             <p class="pub-authors">Lerch, Julia C., Evan Schofer, David John Frank, Wesley Longhofer, Francisco O. Ramirez, Christine Wotipka, and <strong>Kristopher Velasco</strong></p>
             <p class="pub-venue">International Sociology 37(3): 305&ndash;329</p>
+            <div class="pub-abstract">
+              <button class="abstract-toggle">Abstract &#9662;</button>
+              <div class="abstract-content">
+                <p>This article provides a global perspective on trends in women's participation across political, economic, and social domains in the post-liberal era, assessing whether earlier gains have stalled or reversed.</p>
+              </div>
+            </div>
           </div>
         </div>
 
         <!-- 2022: Gonsalves & Velasco - Mobilization -->
-        <div class="pub-entry animate-in" data-type="article">
+        <div class="pub-entry animate-in" data-type="article" data-theme="world-culture">
           <div class="pub-year">2022</div>
           <div class="pub-content">
             <h3>Seeking Friends in Troubled Times: The Structure and Dynamics of Transnational LGBT Networks in Europe</h3>
             <p class="pub-authors">Gonsalves, Tara* and <strong>Kristopher Velasco</strong></p>
             <p class="pub-venue">Mobilization: An International Quarterly 27(1): 91&ndash;114</p>
+            <div class="pub-abstract">
+              <button class="abstract-toggle">Abstract &#9662;</button>
+              <div class="abstract-content">
+                <p>This study maps the structure and dynamics of transnational LGBT advocacy networks across Europe, analyzing how organizations form ties and seek allies during periods of political turbulence.</p>
+              </div>
+            </div>
             <div class="award-badge">&#9733; 2018 Best Paper HM, Global &amp; Transnational Sociology, ASA</div>
           </div>
         </div>
 
         <!-- 2022: Velasco & Paxton - AJS -->
-        <div class="pub-entry animate-in" data-type="article">
+        <div class="pub-entry animate-in" data-type="article" data-theme="world-culture nonprofits">
           <div class="pub-year">2022</div>
           <div class="pub-content">
             <h3>Deconstructed and Constructive Logics: Explaining Inclusive Language Change in Queer Nonprofits, 1998&ndash;2016</h3>
             <p class="pub-authors"><strong>Velasco, Kristopher</strong> and Pamela Paxton</p>
             <p class="pub-venue">American Journal of Sociology 127(4): 1267&ndash;1310</p>
+            <div class="pub-abstract">
+              <button class="abstract-toggle">Abstract &#9662;</button>
+              <div class="abstract-content">
+                <p>This article traces how queer nonprofits adopted increasingly inclusive language between 1998 and 2016, identifying deconstructed and constructive institutional logics that drove organizational naming and framing changes.</p>
+              </div>
+            </div>
           </div>
         </div>
 
         <!-- 2021: Messamore, Paxton & Velasco - A&S -->
-        <div class="pub-entry animate-in" data-type="article">
+        <div class="pub-entry animate-in" data-type="article" data-theme="nonprofits">
           <div class="pub-year">2021</div>
           <div class="pub-content">
             <h3>Can Government Intervention Increase Volunteers and Donations? Analyzing the Influence of VISTA with a Matched Design</h3>
             <p class="pub-authors">Messamore, Andrew*, Pamela Paxton, and <strong>Kristopher Velasco</strong></p>
             <p class="pub-venue">Administration &amp; Society 53(10): 1547&ndash;1579</p>
+            <div class="pub-abstract">
+              <button class="abstract-toggle">Abstract &#9662;</button>
+              <div class="abstract-content">
+                <p>Using a matched design, this study evaluates whether government intervention through the VISTA national service program increases volunteering and charitable donations in communities where members are placed.</p>
+              </div>
+            </div>
           </div>
         </div>
 
         <!-- 2021: Ressler et al. - JPART -->
-        <div class="pub-entry animate-in" data-type="article">
+        <div class="pub-entry animate-in" data-type="article" data-theme="nonprofits">
           <div class="pub-year">2021</div>
           <div class="pub-content">
             <h3>Nonprofits: A Public Policy Tool for the Promotion of Community Subjective Well-Being</h3>
             <p class="pub-authors">Ressler, Robert W., Pamela Paxton, <strong>Kristopher Velasco</strong>, Lilla Pivnick*, Inbar Weiss*, and Johannes Eichstaedt</p>
             <p class="pub-venue">Journal of Public Administration Research &amp; Theory 31(4): 822&ndash;838</p>
+            <div class="pub-abstract">
+              <button class="abstract-toggle">Abstract &#9662;</button>
+              <div class="abstract-content">
+                <p>This article investigates whether nonprofits serve as effective public policy tools for promoting community-level subjective well-being, analyzing the relationship between nonprofit density and community happiness.</p>
+              </div>
+            </div>
             <div class="pub-links">
               <a href="https://doi.org/10.1093/jopart/muab010" class="pub-link" target="_blank">Paper</a>
               <a href="https://osf.io/3vuhq/" class="pub-link data-link" target="_blank">Replication Package</a>
@@ -256,33 +374,51 @@
         </div>
 
         <!-- 2021: Ressler, Paxton & Velasco - NML -->
-        <div class="pub-entry animate-in" data-type="article">
+        <div class="pub-entry animate-in" data-type="article" data-theme="nonprofits">
           <div class="pub-year">2021</div>
           <div class="pub-content">
             <h3>Donations in Social Context</h3>
             <p class="pub-authors">Ressler, Robert W., Pamela Paxton, and <strong>Kristopher Velasco</strong></p>
             <p class="pub-venue">Nonprofit Management &amp; Leadership 31(4): 693&ndash;715</p>
+            <div class="pub-abstract">
+              <button class="abstract-toggle">Abstract &#9662;</button>
+              <div class="abstract-content">
+                <p>This study examines how social context shapes charitable giving, analyzing the community-level factors that encourage or discourage individual donations to nonprofit organizations.</p>
+              </div>
+            </div>
           </div>
         </div>
 
         <!-- 2021: Paxton, Velasco & Ressler - ASR -->
-        <div class="pub-entry animate-in" data-type="article">
+        <div class="pub-entry animate-in" data-type="article" data-theme="nonprofits">
           <div class="pub-year">2021</div>
           <div class="pub-content">
             <h3>Does Use of Emotion Increase Donations and Volunteers for Nonprofits?</h3>
             <p class="pub-authors">Paxton, Pamela, <strong>Kristopher Velasco</strong>, and Robert W. Ressler</p>
             <p class="pub-venue">American Sociological Review 85(6): 1051&ndash;1083</p>
+            <div class="pub-abstract">
+              <button class="abstract-toggle">Abstract &#9662;</button>
+              <div class="abstract-content">
+                <p>This article tests whether nonprofit organizations that use emotional appeals in their communications are more successful at attracting donations and volunteers compared to those using more rational approaches.</p>
+              </div>
+            </div>
             <div class="award-badge">&#9733; 2021 Best Article, Public &amp; Nonprofit Division, Academy of Management</div>
           </div>
         </div>
 
         <!-- 2020: Velasco - ISQ -->
-        <div class="pub-entry animate-in" data-type="article">
+        <div class="pub-entry animate-in" data-type="article" data-theme="world-culture">
           <div class="pub-year">2020</div>
           <div class="pub-content">
             <h3>A Growing Queer Divide: The Divergence between Transnational Advocacy Networks and Foreign Aid in Diffusing LGBT Policies</h3>
             <p class="pub-authors"><strong>Velasco, Kristopher</strong></p>
             <p class="pub-venue">International Studies Quarterly 64(1): 120&ndash;132</p>
+            <div class="pub-abstract">
+              <button class="abstract-toggle">Abstract &#9662;</button>
+              <div class="abstract-content">
+                <p>This article documents a growing divergence between transnational advocacy networks and foreign aid as mechanisms for diffusing LGBT policies across countries, revealing how these two forces increasingly operate at cross-purposes.</p>
+              </div>
+            </div>
             <div class="pub-links">
               <a href="https://doi.org/10.1093/isq/sqz075" class="pub-link" target="_blank">Paper</a>
             </div>
@@ -291,32 +427,50 @@
         </div>
 
         <!-- 2019: Velasco et al. - ARPA -->
-        <div class="pub-entry animate-in" data-type="article">
+        <div class="pub-entry animate-in" data-type="article" data-theme="nonprofits">
           <div class="pub-year">2019</div>
           <div class="pub-content">
             <h3>Do National Service Programs Improve Subjective Well-Being in Communities?</h3>
             <p class="pub-authors"><strong>Velasco, Kristopher</strong>, Pamela Paxton, Robert W. Ressler*, Inbar Weiss*, and Lilla Pivnick*</p>
             <p class="pub-venue">American Review of Public Administration 49(3): 275&ndash;291</p>
+            <div class="pub-abstract">
+              <button class="abstract-toggle">Abstract &#9662;</button>
+              <div class="abstract-content">
+                <p>This study evaluates whether national service programs like AmeriCorps improve subjective well-being at the community level, using longitudinal data to assess the impact of service member placements.</p>
+              </div>
+            </div>
           </div>
         </div>
 
         <!-- 2019: Weiss et al. - SIR -->
-        <div class="pub-entry animate-in" data-type="article">
+        <div class="pub-entry animate-in" data-type="article" data-theme="nonprofits">
           <div class="pub-year">2019</div>
           <div class="pub-content">
             <h3>Revisiting Declines in Social Capital: Evidence from a New Measure</h3>
             <p class="pub-authors">Weiss, Inbar*, Pamela Paxton, <strong>Kristopher Velasco</strong>, and Robert W. Ressler*</p>
             <p class="pub-venue">Social Indicators Research 142(3): 1015&ndash;1029</p>
+            <div class="pub-abstract">
+              <button class="abstract-toggle">Abstract &#9662;</button>
+              <div class="abstract-content">
+                <p>This article introduces a new measure of social capital and uses it to reassess claims about declining social capital in U.S. communities, offering a more nuanced picture of civic engagement trends.</p>
+              </div>
+            </div>
           </div>
         </div>
 
         <!-- 2018: Velasco - Social Forces -->
-        <div class="pub-entry animate-in" data-type="article">
+        <div class="pub-entry animate-in" data-type="article" data-theme="world-culture">
           <div class="pub-year">2018</div>
           <div class="pub-content">
             <h3>Human Rights INGOs, LGBT INGOs, and LGBT Policy Diffusion, 1991&ndash;2015</h3>
             <p class="pub-authors"><strong>Velasco, Kristopher</strong></p>
             <p class="pub-venue">Social Forces 97(1): 377&ndash;404</p>
+            <div class="pub-abstract">
+              <button class="abstract-toggle">Abstract &#9662;</button>
+              <div class="abstract-content">
+                <p>This article examines how the presence and activities of human rights INGOs and LGBT-specific INGOs drive the cross-national diffusion of LGBT-protective policies from 1991 to 2015.</p>
+              </div>
+            </div>
             <div class="award-badge">&#9733; 2017 Best Paper, Human Rights Section, ASA</div>
             <div class="award-badge">&#9733; Best Paper HM, Global &amp; Transnational Sociology, ASA</div>
           </div>
@@ -328,21 +482,33 @@
       <div class="pub-section-title" data-section="chapter"><span class="icon">&#9671;</span> Book Chapters &amp; Other Publications</div>
       <div class="pub-list">
 
-        <div class="pub-entry animate-in" data-type="chapter">
+        <div class="pub-entry animate-in" data-type="chapter" data-theme="world-culture">
           <div class="pub-year">2018</div>
           <div class="pub-content">
             <h3>Gender and Democratization</h3>
             <p class="pub-authors">Paxton, Pamela and <strong>Kristopher Velasco</strong></p>
             <p class="pub-venue">In <em>Democratization</em> (2nd Edition), edited by Christian Haerpfer, Patrick Bernhagen, Ronald F. Inglehart, and Christian Welzel. Oxford University Press.</p>
+            <div class="pub-abstract">
+              <button class="abstract-toggle">Abstract &#9662;</button>
+              <div class="abstract-content">
+                <p>This chapter reviews the relationship between gender equality and democratization, examining how women's political participation shapes and is shaped by democratic transitions and consolidation.</p>
+              </div>
+            </div>
           </div>
         </div>
 
-        <div class="pub-entry animate-in" data-type="chapter">
+        <div class="pub-entry animate-in" data-type="chapter" data-theme="nonprofits">
           <div class="pub-year">2016</div>
           <div class="pub-content">
             <h3>A New County-level Measure of Social Capital</h3>
             <p class="pub-authors">Paxton, Pamela, Inbar Weiss*, Lilla Pivnick*, Robert W. Ressler*, and <strong>Kristopher Velasco</strong></p>
             <p class="pub-venue">Final Report. Corporation for National and Community Service, Office of Research and Evaluation. Washington, D.C.</p>
+            <div class="pub-abstract">
+              <button class="abstract-toggle">Abstract &#9662;</button>
+              <div class="abstract-content">
+                <p>This report develops and validates a new county-level measure of social capital for the Corporation for National and Community Service, enabling more precise tracking of civic engagement across U.S. communities.</p>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -352,7 +518,7 @@
       <div class="pub-section-title" data-section="manuscript"><span class="icon">&#9671;</span> Manuscripts &amp; Works in Progress</div>
       <div class="pub-list">
 
-        <div class="pub-entry animate-in" data-type="manuscript">
+        <div class="pub-entry animate-in" data-type="manuscript" data-theme="queer-demography">
           <div class="pub-year"><span class="status-tag status-rr">R&amp;R</span></div>
           <div class="pub-content">
             <h3>The Geography of Immigrants in Same-Sex Couples in the United States</h3>
@@ -361,7 +527,7 @@
           </div>
         </div>
 
-        <div class="pub-entry animate-in" data-type="manuscript">
+        <div class="pub-entry animate-in" data-type="manuscript" data-theme="world-culture nonprofits">
           <div class="pub-year"><span class="status-tag status-ur">Under Review</span></div>
           <div class="pub-content">
             <h3>Queering Repression: How the Global Crackdown on Civil Society Affects LGBT+ NGO Foundings</h3>
@@ -369,7 +535,7 @@
           </div>
         </div>
 
-        <div class="pub-entry animate-in" data-type="manuscript">
+        <div class="pub-entry animate-in" data-type="manuscript" data-theme="world-culture">
           <div class="pub-year"><span class="status-tag status-ur">Under Review</span></div>
           <div class="pub-content">
             <h3>The Logic of Queer Justice: Disaggregating Global Pathways for Recognizing Homosexual Behaviors, Sexual Orientation, and Gender Identity</h3>
@@ -377,7 +543,7 @@
           </div>
         </div>
 
-        <div class="pub-entry animate-in" data-type="manuscript">
+        <div class="pub-entry animate-in" data-type="manuscript" data-theme="world-culture nonprofits">
           <div class="pub-year"><span class="status-tag status-ongoing">On-Going</span></div>
           <div class="pub-content">
             <h3>Progress for Whom? How LGBT+ Legal Victories at Home Change U.S. &lsquo;Pro-Family&rsquo; Organizations&rsquo; International Expenditures</h3>
@@ -385,7 +551,7 @@
           </div>
         </div>
 
-        <div class="pub-entry animate-in" data-type="manuscript">
+        <div class="pub-entry animate-in" data-type="manuscript" data-theme="world-culture">
           <div class="pub-year"><span class="status-tag status-ongoing">On-Going</span></div>
           <div class="pub-content">
             <h3>From Christian to Nationalist: The Case of the World Congress of Families</h3>
@@ -393,7 +559,7 @@
           </div>
         </div>
 
-        <div class="pub-entry animate-in" data-type="manuscript">
+        <div class="pub-entry animate-in" data-type="manuscript" data-theme="world-culture">
           <div class="pub-year"><span class="status-tag status-ongoing">On-Going</span></div>
           <div class="pub-content">
             <h3>The Evolution in Gender Marker Regulations</h3>
