@@ -1,19 +1,60 @@
-#Retreiving key parts from the base 990 from Urban Institute
+## ============================================================
+## UI_Base_990.R
+##
+## GOAL
+##   Download and merge key sections of the IRS Form 990 from
+##   the Urban Institute's NCCS e-file data (v2.1) for 2009-2024.
+##   Produces ONE combined CSV with one row per filing (URL),
+##   joining across six NCCS tables:
+##     - F9-P01-T00-SUMMARY      (financial summary)
+##     - F9-P09-T00-EXPENSES     (functional expenses)
+##     - F9-P08-T00-REVENUE      (revenue detail)
+##     - F9-P03-T00-MISSION      (mission statement / program service)
+##     - F9-P00-T00-HEADER       (filer metadata: EIN, tax year, etc.)
+##     - SF-P01-T00-FRGN-ACTS    (Schedule F foreign activities flag)
+##
+##   Only full Form 990 filings are retained (990-EZ excluded).
+##   All tables are joined by the `url` column, which is NCCS's
+##   unique identifier for each electronic filing.
+##
+## REQUIRED PACKAGES
+##   dplyr, readr, purrr
+##
+## DATA SOURCE
+##   NCCS e-file v2.1: https://nccs-efile.s3.us-east-1.amazonaws.com/public/efile_v2_1
+##
+## OUTPUT
+##   nccs_summary_990_2009_2024.csv (saved to working directory)
+##
+## AUTHOR
+##   Kristopher Velasco (Princeton University)
+## ============================================================
 
 library(dplyr)
 library(readr)
 library(purrr)
 
+## ----------------------------
+## Configuration
+## ----------------------------
 base  <- "https://nccs-efile.s3.us-east-1.amazonaws.com/public/efile_v2_1"
 years <- 2009:2024
 
+## ----------------------------
+## Helper Functions
+## ----------------------------
+
+# Construct the S3 URL for a given NCCS table prefix and year.
 build_url <- function(prefix, year) {
   sprintf("%s/%s-%d.CSV", base, prefix, year)
 }
 
+# Download and read a single NCCS CSV file. All columns are read as
+# character to avoid type-coercion issues across years; column names
+# are lowercased and trimmed for consistency.
 read_nccs_csv <- function(prefix, year) {
   u <- build_url(prefix, year)
-  
+
   df <- readr::read_csv(
     file = u,
     col_types = cols(.default = col_character()),
@@ -34,8 +75,9 @@ read_nccs_csv <- function(prefix, year) {
   df
 }
 
+# Parse the return_time_stamp field into POSIXct. Handles multiple
+# date formats found across different filing years.
 parse_return_ts <- function(x) {
-  # robust-ish parse without extra packages
   x2 <- trimws(x)
   x2 <- gsub("T", " ", x2, fixed = TRUE)
   x2 <- sub("Z$", "", x2)
@@ -51,9 +93,16 @@ parse_return_ts <- function(x) {
   ))
 }
 
+## ----------------------------
+## Main Processing Function
+## ----------------------------
+
+# Download all six NCCS tables for a given year, filter to full 990
+# filings only, resolve column overlaps, and join into a single
+# data frame keyed by `url`.
 read_join_one_year <- function(year) {
   message("Processing year: ", year)
-  
+
   summary    <- read_nccs_csv("F9-P01-T00-SUMMARY",     year)
   expenses   <- read_nccs_csv("F9-P09-T00-EXPENSES",    year)
   revenue    <- read_nccs_csv("F9-P08-T00-REVENUE",     year)  
@@ -116,11 +165,12 @@ read_join_one_year <- function(year) {
   out
 }
 
-# 1) Download + join each year, then row-bind
+## ----------------------------
+## Execute: Download, join, and save
+## ----------------------------
+
+# Download and join all six tables for each year, then row-bind into one data frame.
 all_years <- purrr::map_dfr(years, read_join_one_year)
 
-# Save:
-write_csv(
-  all_years,
-  "/Users/kv7379/Library/CloudStorage/OneDrive-PrincetonUniversity/Foreign 990/Datasets/nccs_summary_990_2009_2024.csv"
-)
+# Save to working directory. Change the path below to your preferred output location.
+write_csv(all_years, "nccs_summary_990_2009_2024.csv")

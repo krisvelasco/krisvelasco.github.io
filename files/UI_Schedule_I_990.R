@@ -1,12 +1,37 @@
-## ---- NCCS efile v2_1 (2009–2024): join selected GRANTS tables by `url` (keep long) ----
-## Rules:
-##  - For each year, download the listed CSVs (skip missing)
-##  - Lowercase all column names
-##  - Join within-year by `url` WITHOUT forcing 1 row per url (urls can repeat)
-##  - Stack (row-bind) all years into one master dataset
+## ============================================================
+## UI_Schedule_I_990.R
+##
+## GOAL
+##   Download and merge IRS Form 990 Schedule I (Grants and Other
+##   Assistance to Organizations, Governments, and Individuals in
+##   the United States) from the NCCS e-file data (v2.1) for 2009-2024.
+##   Produces a LONG-format CSV: rows can repeat per URL because
+##   individual grant records are preserved (not collapsed).
+##
+##   Five NCCS tables are downloaded and joined per year:
+##     - SI-P01-T00-GRANTS-INFO            (general grants info)
+##     - SI-P02-T00-GRANTS-US-ORGS-GOVTS   (grants to US orgs/govts)
+##     - SI-P02-T01-GRANTS-US-ORGS-GOVTS   (grants to US orgs/govts, cont.)
+##     - SI-P03-T01-GRANTS-US-INDIV        (grants to US individuals)
+##     - SI-P99-T00-GRANTS-US-ORGS-GOVTS   (grants to US orgs/govts, alt.)
+##
+##   Tables are joined by `url` (NCCS unique filing identifier)
+##   using a many-to-many full join, then stacked across years.
+##
+## REQUIRED PACKAGES
+##   dplyr, readr, purrr
+##
+## DATA SOURCE
+##   NCCS e-file v2.1: https://nccs-efile.s3.us-east-1.amazonaws.com/public/efile_v2_1
+##
+## OUTPUT
+##   nccs_schedule_i_2009_2024.csv (saved to working directory)
+##
+## AUTHOR
+##   Kristopher Velasco (Princeton University)
+## ============================================================
 
-# If needed:
-# install.packages(c("dplyr", "readr", "purrr"))
+# install.packages(c("dplyr", "readr", "purrr"))  # uncomment if needed
 
 library(dplyr)
 library(readr)
@@ -93,5 +118,5 @@ join_one_year_long <- function(year) {
 
 master_2009_2024_long <- map_dfr(years, join_one_year_long)
 
-# Result:
-write_csv(master_2009_2024_long, "/Users/kv7379/Library/CloudStorage/OneDrive-PrincetonUniversity/Foreign 990/Datasets/nccs_schedule_i_2009_2024.csv")
+# Save to working directory. Change the path below to your preferred output location.
+write_csv(master_2009_2024_long, "nccs_schedule_i_2009_2024.csv")
