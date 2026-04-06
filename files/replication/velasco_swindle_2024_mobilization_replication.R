@@ -21,13 +21,30 @@
 #
 # Note: Figures 1, 2a, and 2b are photographs/scans and are not replicable.
 #
+# HOW TO USE:
+#   1. Place these three files in the same directory:
+#        velasco_swindle_2024_mobilization_main.csv
+#        velasco_swindle_2024_mobilization_network.csv
+#        velasco_swindle_2024_mobilization_replication.R
+#   2. Set your working directory to that folder (or update the paths below).
+#   3. Install required packages (see below) and run the script.
+#   4. Tables are saved as HTML files; figures are saved as PNG files.
+#
+# REQUIRED PACKAGES:
+#   install.packages(c("tidyverse", "cowplot", "stargazer",
+#                      "igraph", "network", "sna", "GGally",
+#                      "intergraph", "gridExtra"))
+#
+# Contact:
+#   Kristopher Velasco (kvelasco@princeton.edu)
+#   Jeffrey Swindle (jswindle@umich.edu)
+#
 # Date of original scripts: May 2022 - December 2023
 # Date of consolidated R replication: April 6, 2026
 # ==============================================================================
 
 # --- Load Required Libraries ---
 library(tidyverse)
-library(readxl)
 library(cowplot)
 library(stargazer)
 library(igraph)
@@ -42,11 +59,12 @@ options(stringsAsFactors = FALSE)
 # ==============================================================================
 # SET FILE PATHS — Update to match your local directory
 # ==============================================================================
-base_path <- "/Users/kv7379/Library/Mobile Documents/com~apple~CloudDocs/Documents/Research Projects/WCF Network"
-data_file <- file.path(base_path, "Datasets", "WCF Presenters_20230804.xlsx")
-net_file  <- file.path(base_path, "Datasets", "WCF Presenters_20230705.xlsx")
-fig_path  <- file.path(base_path, "Figures", "For Mobilization Publication")
-tab_path  <- file.path(base_path, "Replication Files", "Mobilization 2024", "Tables")
+# By default, assumes data files are in the same directory as this script.
+# If you placed the files elsewhere, update these paths accordingly.
+data_file <- "velasco_swindle_2024_mobilization_main.csv"
+net_file  <- "velasco_swindle_2024_mobilization_network.csv"
+fig_path  <- "figures"
+tab_path  <- "tables"
 
 dir.create(fig_path, recursive = TRUE, showWarnings = FALSE)
 dir.create(tab_path, recursive = TRUE, showWarnings = FALSE)
@@ -54,8 +72,13 @@ dir.create(tab_path, recursive = TRUE, showWarnings = FALSE)
 # ==============================================================================
 # READ DATA
 # ==============================================================================
-conferences_raw <- read_excel(data_file, sheet = "List of Conferences")
-speakers_raw    <- read_excel(data_file, sheet = "WCF Presenters")
+speakers_raw <- read.csv(data_file)
+wcf_net      <- read.csv(net_file)
+
+# Derive conference-level data from speaker-level records
+conferences_raw <- speakers_raw %>%
+  distinct(Conference_ID, Conference_Type, Conference_Title,
+           Conference_Country, Conference_City, Year, Conference_Theme)
 
 # ******************************************************************************
 # SECTION 1: TABLES
@@ -68,16 +91,16 @@ speakers_raw    <- read_excel(data_file, sheet = "WCF Presenters")
 table1 <- conferences_raw %>%
   mutate(
     `Conference Type` = case_when(
-      str_detect(EventType, "Congress")  ~ "Global Congress",
-      str_detect(EventType, "Regional")  ~ "Regional Conference",
-      TRUE ~ EventType
+      str_detect(Conference_Type, "Congress")    ~ "Global Congress",
+      str_detect(Conference_Type, "Conference")  ~ "Regional Conference",
+      TRUE ~ Conference_Type
     )
   ) %>%
   arrange(Year, `Conference Type`) %>%
-  select(Year, `Conference Type`, Location,
-         `Theme` = `Conference Theme or Name`)
+  select(Year, `Conference Type`, Location = Conference_City,
+         `Theme` = Conference_Title)
 
-# Count distinct orgs per conference-year for the "Orgs" column
+# Count distinct orgs per conference-year
 orgs_per_conf <- speakers_raw %>%
   filter(!is.na(Organization) & Organization != "") %>%
   group_by(Year, Conference_Type) %>%
@@ -96,8 +119,8 @@ cat("Table 1 saved.\n")
 # ==============================================================================
 
 table2 <- speakers_raw %>%
-  filter(!is.na(Name) & Name != "") %>%
-  group_by(Name) %>%
+  filter(!is.na(Person) & Person != "") %>%
+  group_by(Person) %>%
   summarise(
     `Organization(s)` = first(na.omit(Organization)),
     Location           = first(na.omit(Organization_Country)),
@@ -106,7 +129,7 @@ table2 <- speakers_raw %>%
   ) %>%
   arrange(desc(Appearances)) %>%
   slice_head(n = 20) %>%
-  select(Name, `Organization(s)`, Location, Appearances)
+  select(Name = Person, `Organization(s)`, Location, Appearances)
 
 stargazer(as.data.frame(table2),
           type = "html",
@@ -148,8 +171,8 @@ cat("Table 3 saved.\n")
 conferences <- conferences_raw %>%
   mutate(
     meeting_type = case_when(
-      str_detect(EventType, "Congress")  ~ "congress",
-      str_detect(EventType, "Regional")  ~ "conference",
+      str_detect(Conference_Type, "Congress")    ~ "congress",
+      str_detect(Conference_Type, "Conference")  ~ "conference",
       TRUE ~ NA_character_
     )
   ) %>%
@@ -247,8 +270,6 @@ cat("Figure 4 saved.\n")
 # SECTION 4: FIGURE 5 — Network Visualizations by Historical Period
 # ******************************************************************************
 
-wcf_net <- read_excel(net_file, sheet = "Network Format")
-
 # --- Helper: build igraph object from conference column subset ---
 build_network <- function(data, conf_cols) {
   orgs    <- data$Organization
@@ -290,14 +311,14 @@ g_2007 <- build_network(wcf_net, cols_2007)
 g_2016 <- build_network(wcf_net, cols_2016)
 
 # Drop isolates for visualization
-g_1997_vis <- delete.vertices(g_1997, V(g_1997)[degree(g_1997) == 0])
-g_2002_vis <- delete.vertices(g_2002, V(g_2002)[degree(g_2002) == 0])
-g_2007_vis <- delete.vertices(g_2007, V(g_2007)[degree(g_2007) == 0])
-g_2016_vis <- delete.vertices(g_2016, V(g_2016)[degree(g_2016) == 0])
+g_1997_vis <- igraph::delete.vertices(g_1997, V(g_1997)[igraph::degree(g_1997) == 0])
+g_2002_vis <- igraph::delete.vertices(g_2002, V(g_2002)[igraph::degree(g_2002) == 0])
+g_2007_vis <- igraph::delete.vertices(g_2007, V(g_2007)[igraph::degree(g_2007) == 0])
+g_2016_vis <- igraph::delete.vertices(g_2016, V(g_2016)[igraph::degree(g_2016) == 0])
 
 # Region color palette
 region_palette <- c(
-  "Post-Communist"          = "#ffbb44",
+  "Post-Soviet"             = "#ffbb44",
   "Latin America/Caribbean" = "#ee8577",
   "Asia/Pacific"            = "#ce4441",
   "Africa"                  = "#859b6c",
@@ -331,7 +352,7 @@ cat("Figure 5 saved.\n")
 # ******************************************************************************
 
 get_top_betweenness <- function(g, period_label, n = 5) {
-  V(g)$betweenness <- betweenness(g)
+  V(g)$betweenness <- igraph::betweenness(g)
   data.frame(
     Period       = period_label,
     Organization = V(g)$name,
@@ -377,10 +398,10 @@ org_region <- speakers_raw %>%
   ungroup()
 
 region_titles <- c(
-  "Western Europe & North America" = "Western Europe & North America",
-  "Africa"                         = "Africa",
-  "Asia and the Pacific"           = "Asia and the Pacific",
-  "Eastern Europe & Central Asia"  = "Post-Soviet",
+  "Western Europe & North America"  = "Western Europe & North America",
+  "Africa"                          = "Africa",
+  "Asia and the Pacific"            = "Asia and the Pacific",
+  "Eastern Europe & Central Asia"   = "Eastern Europe & Central Asia",
   "Latin America and the Caribbean" = "Latin America and the Caribbean"
 )
 
